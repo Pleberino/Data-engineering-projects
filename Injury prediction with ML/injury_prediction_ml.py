@@ -188,7 +188,7 @@ class InjuryPredictionML:
         
         # Create additional features
         self.df['VEHICLE_TYPE'] = 'CAR'
-        self.df['POSITION'] = np.where(self.df['SEAT_POS'].isin(['1', '2', '3']), 'FRONT', 'BACK')
+        self.df['POSITION'] = np.where(self.df['SEAT_POS'].isin(['1', '2']), 'FRONT', 'BACK') 
         
         # Drop unnecessary columns
         to_delete = ['INJ_SEV', 'SEAT_POS', 'YEAR']
@@ -237,7 +237,7 @@ class InjuryPredictionML:
         logger.info(f"Test set size: {getattr(self.X_test, 'shape', 'unknown')}")
         num_var = ['PARTY_NUM', 'AGE']
         cat_var = ['ROLE', 'EQUIP_1', 'EQUIP_2', 'EJECTED', 'VEHICLE_TYPE', 'POSITION']
-        cat_preprocessor = OneHotEncoder(drop='first', sparse_output=False)
+        cat_preprocessor = OneHotEncoder(drop='first', sparse_output=False, handle_unknown='ignore')
         num_preprocessor = StandardScaler()
         self.preprocessor = ColumnTransformer(
             transformers=[
@@ -386,7 +386,7 @@ class InjuryPredictionML:
         self.visualize_injury_distribution()
         self.clean_data()
         self.handle_missing_values()
-        X_train_processed, X_test_processed = self.prepare_data(sample_size=None)
+        X_train_processed, X_test_processed = self.prepare_data(sample_size=100000)
         if X_train_processed is None or X_test_processed is None:
             logger.error("Data preparation failed.")
             return False
