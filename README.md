@@ -16,6 +16,3 @@ Chaque projet contient :
 - Données
 - Documentation
 - Résultats d'analyse
-
-## 📬 Contact
-danielkouacoupro@gmail.com
