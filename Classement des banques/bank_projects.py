@@ -31,8 +31,8 @@ def extract(url):
     df = pd.DataFrame(columns=table_attributes)
     html_page = requests.get(url).text
     data = BeautifulSoup(html_page, "html.parser")
-    tables = data.find_all("tbody")
-    rows = tables[0].find_all("tr")
+    tables = data.find_all("tbody") # Tables
+    rows = tables[0].find_all("tr") # Rows 
 
     for row in rows:
         cells = row.find_all("td") # Cells
